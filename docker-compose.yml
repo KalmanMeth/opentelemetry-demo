@@ -398,7 +398,7 @@ services:
 
   # Load Generator
   load-generator:
-    image: ${IMAGE_NAME}:${DEMO_VERSION}-load-generator
+    image: quay.io/mudiverm/srebench-loadgen:0.3
     container_name: load-generator
     build:
       context: ./
@@ -414,7 +414,7 @@ services:
       - "${LOCUST_WEB_PORT}"
     environment:
       - LOCUST_WEB_PORT
-      - LOCUST_USERS
+      - LOCUST_USERS=10
       - LOCUST_HOST
       - LOCUST_HEADLESS
       - LOCUST_AUTOSTART
@@ -427,6 +427,8 @@ services:
       - LOCUST_WEB_HOST=0.0.0.0
       - FLAGD_HOST
       - FLAGD_OFREP_PORT
+      - WAIT_TIME_BETWEEN_TASKS_START=0
+      - WAIT_TIME_BETWEEN_TASKS_END=0
     depends_on:
       frontend:
         condition: service_started
