@@ -46,6 +46,46 @@ def getFileNames(dirName):
     fileNames.sort()
     return fileNames
 
+def graph1Field(dirName, field1):
+    fileNames = getFileNames(dirName)
+    print("graph1Field: fileNames = ", fileNames)
+    for fileName in fileNames:
+        fullPath = os.path.join(dirName, fileName)
+        csvFileDict = readCsvFile(fullPath)
+        time_list = extractField(csvFileDict, 'TimeFromStart')
+        time_list_float = [float(p) for p in time_list]
+        field1Stat = extractField(csvFileDict, field1)
+        field1StatFloat = [float(p) for p in field1Stat]
+        label1 = fileName + '_' + field1
+        plt.plot(time_list_float, field1StatFloat, label=label1)
+    plt.xlabel("seconds in run")
+    plt.ylabel(field1)
+    plt.title(field1)
+    plt.legend()
+    plt.show()
+
+def graph2Fields(dirName, field1, field2):
+    fileNames = getFileNames(dirName)
+    print("graph2Fields: fileNames = ", fileNames)
+    for fileName in fileNames:
+        fullPath = os.path.join(dirName, fileName)
+        csvFileDict = readCsvFile(fullPath)
+        time_list = extractField(csvFileDict, 'TimeFromStart')
+        time_list_float = [float(p) for p in time_list]
+        field1Stat = extractField(csvFileDict, field1)
+        field1StatFloat = [float(p) for p in field1Stat]
+        field2Stat = extractField(csvFileDict, field2)
+        field2StatFloat = [float(p) for p in field2Stat]
+        label1 = fileName + '_' + field1
+        plt.plot(time_list_float, field1StatFloat, label=label1)
+        label2 = fileName + '_' + field2
+        plt.plot(time_list_float, field2StatFloat, label=label2)
+    plt.xlabel("seconds in run")
+    plt.ylabel(field1+'_'+field2)
+    plt.title(field1+'_'+field2)
+    plt.legend()
+    plt.show()
+
 def graphCPU(dirName):
     fileNames = getFileNames(dirName)
     print("graphCPU: fileNames = ", fileNames)
@@ -115,7 +155,7 @@ def graphNet(dirName):
             netParsedOut.append(netOut)
             netParsedIn.append(netIn)
 
-        plt.plot(time_list_float, netParsedIn, label=fileName+' In')
+        #plt.plot(time_list_float, netParsedIn, label=fileName+' In')
         plt.plot(time_list_float, netParsedOut, label=fileName+' Out')
     plt.xlabel("seconds in run")
     plt.ylabel("network bytes total")
@@ -126,5 +166,8 @@ def graphNet(dirName):
 # main function
 if __name__ == "__main__":
     dirName = sys.argv[1]
-    graphNet(dirName)
+    #graph1Field(dirName, 'FileIn')
+    graph1Field(dirName, 'FileOut')
+    #graph2Fields(dirName, 'FileIn', 'FileOut')
+    #graphMem(dirName)
 

@@ -1,0 +1,3 @@
+TimeFromStart,BlockIO,CPUPerc,Container,ID,MemPerc,MemUsage,Name,NetIO,PIDs,FileIn,FileOut
+5.997209,0B / 0B,0.00%,otel-collector,e518da04fd98,0.00%,0B / 0B,otel-collector,0B / 0B,0,19375170,19375170
+10.884377,0B / 0B,0.00%,otel-collector,e518da04fd98,0.00%,0B / 0B,otel-collector,0B / 0B,0,19375170,19375170

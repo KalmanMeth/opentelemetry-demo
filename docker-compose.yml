@@ -782,6 +782,8 @@ services:
       - ${DOCKER_SOCK}:/var/run/docker.sock:ro
       - ${OTEL_COLLECTOR_CONFIG}:/etc/otelcol-config.yml
       - ${OTEL_COLLECTOR_CONFIG_EXTRAS}:/etc/otelcol-config-extras.yml
+      - ${OTEL_COLLECTOR_FILE_OUT}:/otel-collector-out.json
+      - ${OTEL_COLLECTOR_FILE_IN}:/otel-collector-in.json
     ports:
       - "${OTEL_COLLECTOR_PORT_GRPC}"
       - "${OTEL_COLLECTOR_PORT_HTTP}"

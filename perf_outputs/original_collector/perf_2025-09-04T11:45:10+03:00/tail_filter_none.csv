@@ -1,0 +1,12 @@
+TimeFromStart,BlockIO,CPUPerc,Container,ID,MemPerc,MemUsage,Name,NetIO,PIDs
+11.582046,4.3MB / 0B,40.39%,otel-collector,74e4e9f1bf72,16.71%,83.55MiB / 500MiB,otel-collector,6.02MB / 1.61MB,13
+21.552200,4.51MB / 0B,38.93%,otel-collector,74e4e9f1bf72,19.92%,99.61MiB / 500MiB,otel-collector,13.3MB / 4.17MB,13
+31.570722,4.51MB / 0B,32.03%,otel-collector,74e4e9f1bf72,22.06%,110.3MiB / 500MiB,otel-collector,19.2MB / 6.9MB,13
+41.598341,4.53MB / 0B,39.86%,otel-collector,74e4e9f1bf72,20.40%,102MiB / 500MiB,otel-collector,23.2MB / 8.75MB,13
+51.558076,4.73MB / 0B,28.98%,otel-collector,74e4e9f1bf72,20.89%,104.4MiB / 500MiB,otel-collector,27.8MB / 10.4MB,14
+61.561562,4.83MB / 0B,29.86%,otel-collector,74e4e9f1bf72,21.42%,107.1MiB / 500MiB,otel-collector,33.1MB / 12.6MB,14
+71.703321,4.89MB / 0B,43.89%,otel-collector,74e4e9f1bf72,21.48%,107.4MiB / 500MiB,otel-collector,37.3MB / 14.7MB,14
+81.569585,4.89MB / 0B,32.54%,otel-collector,74e4e9f1bf72,21.70%,108.5MiB / 500MiB,otel-collector,42.7MB / 16MB,14
+91.561486,4.89MB / 0B,27.83%,otel-collector,74e4e9f1bf72,22.10%,110.5MiB / 500MiB,otel-collector,48.8MB / 18.8MB,14
+101.598905,5.03MB / 0B,26.80%,otel-collector,74e4e9f1bf72,23.56%,117.8MiB / 500MiB,otel-collector,54.3MB / 21.3MB,14
+111.595124,5.03MB / 0B,37.72%,otel-collector,74e4e9f1bf72,21.23%,106.1MiB / 500MiB,otel-collector,61MB / 23.5MB,14

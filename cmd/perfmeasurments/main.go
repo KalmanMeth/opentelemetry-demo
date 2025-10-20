@@ -48,6 +48,8 @@ type metricsStruct struct {
 	NetIO string `json:"NetIO"`
 	PIDs string `json:"PIDs"`
 	timeFromStart	float64
+	FileIn int64 `json:"FileIn"`
+	FileOut int64 `json:"FileOut"`
 }
 
 var opts Options
@@ -186,8 +188,8 @@ func runMeasurements(srcFolder string, filePaths []string, tgtFolder string) {
 		}
 		dw := bufio.NewWriter(f)
 		// write the csv column headers
-		l := fmt.Sprintf("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
-			"TimeFromStart","BlockIO","CPUPerc","Container","ID","MemPerc","MemUsage","Name","NetIO","PIDs",
+		l := fmt.Sprintf("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+			"TimeFromStart","BlockIO","CPUPerc","Container","ID","MemPerc","MemUsage","Name","NetIO","PIDs","FileIn","FileOut",
 		)
 		fmt.Printf("%s", l)
 		_, _ = dw.WriteString(l)
@@ -206,9 +208,10 @@ func runMeasurements(srcFolder string, filePaths []string, tgtFolder string) {
 					currentTime := time.Now()
 					timeFromStart := currentTime.Sub(startTime)
 					metrics.timeFromStart = timeFromStart.Seconds()
-					l := fmt.Sprintf("%f,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+					l := fmt.Sprintf("%f,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d\n",
 						metrics.timeFromStart, metrics.BlockIO, metrics.CPUPerc, metrics.Container, metrics.ID,
 						metrics.MemPerc, metrics.MemUsage, metrics.Name, metrics.NetIO, metrics.PIDs,
+						metrics.FileIn, metrics.FileOut,
 					)
 					fmt.Printf("%s", l)
 					_, _ = dw.WriteString(l)
@@ -247,11 +250,23 @@ func restartCollector(fullFilePath string) (error){
 }
 
 func collectMetrics() (metricsStruct, error) {
+	// obtain otel-collector statistics
 	cmd := exec.Command("docker", "stats", "otel-collector", "--no-stream", "--format", "json")
 	cmd.Dir, _ = os.Getwd()
 	output, err := cmd.CombinedOutput()
 
 	var m metricsStruct
 	json.Unmarshal(output, &m)
+
+	// obtain size of data before and after sampling
+	fileInInfo, err	:= os.Stat("otel-collector-in.json")
+	if err == nil {
+		m.FileIn = fileInInfo.Size()
+	}
+	fileOutInfo, err	:= os.Stat("otel-collector-out.json")
+	if err == nil {
+		m.FileOut = fileOutInfo.Size()
+	}
+
 	return m, err
 }
